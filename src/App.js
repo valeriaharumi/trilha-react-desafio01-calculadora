@@ -8,17 +8,20 @@ import { useState } from 'react';
 
 const App = () => {
   const [currentNumber, setCurrentNumber] = useState('0');
+  const [displayNumber, setDisplayNumber] = useState('0');
   const [firstNumber, setFirstNumber] = useState('0');
   const [operation, setOperation] = useState('');
 
   const handleOnClear = () => {
     setCurrentNumber('0')
+    setDisplayNumber('0')
     setFirstNumber('0')
     setOperation('')
   };
 
   const handleAddNumber = (num) => {
     setCurrentNumber(prev => `${prev === '0' ? '' : prev}${num}`)
+    setDisplayNumber(prev => `${prev === '0' ? '' : prev}${num}`)
   }
 
   const handleSumNumbers = () => {
@@ -27,9 +30,11 @@ const App = () => {
       setFirstNumber(String(currentNumber));
       setCurrentNumber('0')
       setOperation('+')
+      setDisplayNumber(prev => `${prev === '0' ? '' : prev} + `)
     } else {
-      const sum = Number(firstNumber) + Number(currentNumber);
-      setCurrentNumber(String(sum))
+      const result = Number(firstNumber) + Number(currentNumber);
+      setCurrentNumber(String(result))
+      setDisplayNumber(String(result))
       setOperation('')
     }
   }
@@ -40,9 +45,11 @@ const App = () => {
       setFirstNumber(String(currentNumber));
       setCurrentNumber('0')
       setOperation('-')
+      setDisplayNumber(prev => `${prev === '0' ? '' : prev} - `)
     } else {
-      const sum = Number(firstNumber) - Number(currentNumber);
-      setCurrentNumber(String(sum))
+      const result = Number(firstNumber) - Number(currentNumber);
+      setCurrentNumber(String(result))
+      setDisplayNumber(String(result))
       setOperation('')
     }
   }
@@ -53,9 +60,11 @@ const App = () => {
       setFirstNumber(String(currentNumber));
       setCurrentNumber('0')
       setOperation('*')
+      setDisplayNumber(prev => `${prev === '0' ? '' : prev} x `)
     } else {
       const result = Number(firstNumber) * Number(currentNumber);
       setCurrentNumber(String(result))
+      setDisplayNumber(String(result))
       setOperation('')
     }
   }
@@ -66,9 +75,11 @@ const App = () => {
       setFirstNumber(String(currentNumber));
       setCurrentNumber('0')
       setOperation('/')
+      setDisplayNumber(prev => `${prev === '0' ? '' : prev} / `)
     } else {
       const result = Number(firstNumber) / Number(currentNumber);
       setCurrentNumber(String(result))
+      setDisplayNumber(String(result))
       setOperation('')
     }
   }
@@ -98,7 +109,7 @@ const App = () => {
   return (
     <Container>
       <Content>
-        <Input value={currentNumber} />
+        <Input value={displayNumber} />
         <Row>
           <Button label="x" onClick={handleMultiplyNumbers} />
           <Button label="/" onClick={handleDivideNumbers} />
